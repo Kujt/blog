@@ -27,14 +27,14 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
 
+    objects = models.Manager()  # The default manager.
+    published = PublishedManager()  # Our custom manager.
+
     class Meta:
         ordering = ("-publish",)
 
     def __str__(self):
         return self.title
-
-    objects = models.Manager()  # The default manager.
-    published = PublishedManager()  # Our custom manager.
 
     def get_absolute_url(self):
         return reverse(
