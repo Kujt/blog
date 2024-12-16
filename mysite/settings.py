@@ -122,6 +122,10 @@ STATIC_URL = "/static/"
 
 
 # Email
+
+from dotenv import load_dotenv
+
+load_dotenv()
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL = os.environ.get("EMAIL_HOST_USER")
 EMAIL_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
