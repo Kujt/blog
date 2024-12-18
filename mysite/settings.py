@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "blog",
+    "taggit",
 ]
 
 MIDDLEWARE = [
@@ -123,7 +124,7 @@ STATIC_URL = "/static/"
 
 # Email
 
-from dotenv import load_dotenv
+from dotenv import load_dotenv  # type: ignore
 
 load_dotenv()
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
