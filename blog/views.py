@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
+from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Post, Comment
 from django.views.generic import ListView
 from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
-from taggit.models import Tag
+from taggit.models import Tag  # type: ignore
 import os
 from dotenv import load_dotenv  # type: ignore
 
