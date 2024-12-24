@@ -76,5 +76,5 @@ python manage.py runserver
 This will start the server at http://127.0.0.1:8000/, where you can view the blog.
 
 5. **Access the app**
-Homepage: Open your web browser and go to http://127.0.0.1:8000/ to view the blog posts.
-Admin Panel: The admin panel is available at http://127.0.0.1:8000/admin/. You can log in using the superuser credentials you created.
+-Homepage: Open your web browser and go to http://127.0.0.1:8000/ to view the blog posts.
+-Admin Panel: The admin panel is available at http://127.0.0.1:8000/admin/. You can log in using the superuser credentials you created.
