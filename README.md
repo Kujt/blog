@@ -43,16 +43,15 @@ Follow these steps to get the project up and running on your local machine:
    cd blog
    ```
 
-2. ** Create a virtual environment**
-
-It's a good practice to create a virtual environment for your project to isolate dependencies.
+2. ** Create a virtual environment**:
+- It's a good practice to create a virtual environment for your project to isolate dependencies.
 
 ```bash
 python -m venv venv
 ```
-Once the virtual environment is created, activate it using the following commands:
-  On Windows:
-  ```bash
+- Once the virtual environment is created, activate it using the following commands:
+On Windows:
+ ```bash
 venv\Scripts\activate
 ```
 On MacOS/Linux:
