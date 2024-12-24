@@ -13,7 +13,12 @@ import os
 from dotenv import load_dotenv  # type: ignore
 from django.contrib.postgres.search import SearchVector
 from .forms import CommentForm, EmailPostForm, SearchForm
-from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.contrib.postgres.search import (
+    SearchVector,
+    SearchQuery,
+    SearchRank,
+    TrigramSimilarity,
+)
 
 load_dotenv()
 EMAIL = os.environ.get("EMAIL_HOST_USER")
@@ -129,17 +134,24 @@ def post_search(request):
         form = SearchForm(request.GET)
         if form.is_valid():
             query = form.cleaned_data["query"]
-            search_vector = SearchVector("title", "body", config="spanish")
-            search_query = SearchQuery(query)
+            # search_vector = SearchVector("title", "body", config="albanian")
+            # search_query = SearchQuery(query, config="albanian")
             results = (
                 (
                     Post.published.annotate(
-                        search=search_vector,
-                        rank=SearchVector(search_vector, search_query),
+                        similarity=TrigramSimilarity("title", query)
+                        # search=search_vector,
+                        # rank=SearchVector(search_vector, search_query),
                     )
                 )
-                .filter(search=search_query)
-                .order_by("-rank")
+                .filter(
+                    similarity__gt=0.1
+                    # search=search_query
+                )
+                .order_by(
+                    "-similarity"
+                    # "-rank"
+                )
             )
     return render(
         request,
