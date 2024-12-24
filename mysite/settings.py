@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+from dotenv import load_dotenv  # type: ignore
+
+load_dotenv()
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -41,6 +46,7 @@ INSTALLED_APPS = [
     "taggit",
     "django.contrib.sites",
     "django.contrib.sitemaps",
+    "django.contrib.postgres",
 ]
 
 MIDDLEWARE = [
@@ -79,8 +85,13 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": "5432",  # PostgreSQL default port
+        "OPTIONS": {"options": "-c timezone=utc"},
     }
 }
 
@@ -115,7 +126,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -126,9 +137,7 @@ STATIC_URL = "/static/"
 
 # Email
 
-from dotenv import load_dotenv  # type: ignore
 
-load_dotenv()
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL = os.environ.get("EMAIL_HOST_USER")
 EMAIL_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
